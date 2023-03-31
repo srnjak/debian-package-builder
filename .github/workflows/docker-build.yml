@@ -1,0 +1,30 @@
+name: Build and Push Docker Image
+
+env:
+  DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  DOCKER_REPOSITORY_NAME: ${{ vars.DOCKER_REPOSITORY_NAME }}
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_REPOSITORY_NAME }}:${{ github.sha }}
+            ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_REPOSITORY_NAME }}:$(date -u +"%Y-%m-%d")
+            ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_REPOSITORY_NAME }}:latest
+          username: ${{ env.DOCKER_USERNAME }}
+          password: ${{ env.DOCKER_PASSWORD }}
