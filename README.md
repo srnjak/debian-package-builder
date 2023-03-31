@@ -23,6 +23,19 @@ To run the Docker image, use the following command:
 
 This will start a container with the debian-package-builder image and open a terminal session within the container.
 
+## Docker Hub Image
+
+The Docker Hub image is available at: https://hub.docker.com/r/srnjak/debian-package-builder. To use the Docker Hub image, first pull the image from Docker Hub using the following command:
+
+    docker pull srnjak/debian-package-builder
+
+This will download the image from Docker Hub and make it available on your system. 
+Then you can run the Docker image with the following command:
+
+    docker run -it srnjak/debian-package-builder
+
+This will start a container with the srnjak/debian-package-builder image and open a terminal session within the container.
+
 ## Building Debian Packages
 
 To simplify the process of building Debian packages, you can use the scripts provided in the `deb-build-utils` package. This package includes the following useful scripts:

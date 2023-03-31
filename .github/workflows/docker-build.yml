@@ -16,6 +16,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+      - name: Check if Dockerfile changed
+        id: dockerfile-changed
+        run: echo "::set-output name=changed::$(git diff HEAD^ HEAD --name-only | grep Dockerfile)"
       - name: Set up environment
         run: echo "CURRENT_DATE=$(date -u '+%Y-%m-%d')" >> $GITHUB_ENV
       - name: Login to Docker Hub
@@ -32,3 +35,4 @@ jobs:
             ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_REPOSITORY_NAME }}:${{ github.sha }}
             ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_REPOSITORY_NAME }}:${{ env.CURRENT_DATE }}
             ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_REPOSITORY_NAME }}:latest
+          if: steps.dockerfile-changed.outputs.changed == 'Dockerfile'
