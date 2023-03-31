@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV SRNJAK_URL https://ci.srnjak.com/nexus/
 
 # Add the SRNJAK apt source
-RUN apt-get update && apt-get install -y ca-certificates gnupg2 curl && \
+RUN apt-get update && apt-get install -y ca-certificates gnupg2 curl git && \
     echo "deb $SRNJAK_URL/repository/apt-release release main" | tee /etc/apt/sources.list.d/srnjak.list && \
     curl -sSL $SRNJAK_URL/repository/public/gpg/public.gpg.key | gpg --dearmor -o /etc/apt/trusted.gpg.d/srnjak.gpg
 
