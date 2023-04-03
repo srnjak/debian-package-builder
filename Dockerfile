@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y ca-certificates gnupg2 curl git && \
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
-    deb-build-utils=1.0.4 \
+    deb-build-utils=1.0.5 \
     # add any additional dependencies you need here
     && rm -rf /var/lib/apt/lists/*
 
